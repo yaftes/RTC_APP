@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rtc_app/pages/login.dart';
+import 'package:rtc_app/pages/register.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,10 +16,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-      
-      
-      ),
-      home: Login(),
+     ),
+      home: Register(),
     );
   }
 }
