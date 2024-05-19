@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class CoButton extends StatelessWidget {
   final String text;
   final void Function()? onTap;
+  
   const CoButton({
     super.key,
     required this.text,
@@ -12,15 +13,15 @@ class CoButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(25.0),
+      padding: const EdgeInsets.symmetric(horizontal: 25,vertical: 15),
       child: GestureDetector(
         onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.circular(12)
+            color: Color.fromARGB(255, 186, 186, 94),
+            borderRadius: BorderRadius.circular(10)
           ),
-          padding:  EdgeInsets.all(20),
+          padding:  EdgeInsets.all(15)   ,
           child: Center(
             child: Text(
               text,

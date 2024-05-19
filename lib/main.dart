@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rtc_app/auth/loginorregister.dart';
 import 'package:rtc_app/pages/login.dart';
 import 'package:rtc_app/pages/register.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
      ),
-      home: Register(),
+      home: Loginorregister(),
     );
   }
 }
