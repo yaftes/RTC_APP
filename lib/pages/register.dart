@@ -20,7 +20,7 @@ class Register extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Colors.tealAccent,
+              Colors.purple,
               Colors.cyan,
             ],
           ),
@@ -34,42 +34,41 @@ class Register extends StatelessWidget {
                   mainAxisAlignment:MainAxisAlignment.center,
                   children: [
                      Container(
-                        width: 250,
-                        height: 250,
+                        width: 200,
+                        height: 200,
                         child: Image.asset("assets/pro.png")),
-                      SizedBox(height: 35),
-                    
-                 Text("Welcome to our RTC App",
+                 Text("Welcome to RTC App",
                  style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 24,
                   fontWeight: FontWeight.w400,
                   color: Colors.white,
                  ),),
-                SizedBox(height: 20,),
+                SizedBox(height: 10,),
         
                 CoTextfield(controller: usrnameCo, hintText: 'Username', obscureText: false),
-                SizedBox(height: 12,),
+                SizedBox(height: 15,),
                 CoTextfield(controller: emailCo, hintText: 'Email', obscureText: false),
-                SizedBox(height: 12.0,),
+                SizedBox(height: 15,),
                 CoTextfield(controller: passCo, hintText: 'Password', obscureText: true),
-                SizedBox(height: 12,),
+                SizedBox(height: 15,),
                 CoTextfield(controller: ConfirmCo, hintText: 'Password', obscureText: true),
                 
               
                 SizedBox(height: 15,),
                 
                 CoButton(text: "Register", onTap:register),
-          
+                SizedBox(height: 10,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("Already have an account ?"),
-        
+                    SizedBox(width: 15,),
                     GestureDetector(
                       onTap: onTap,
                       child: Text("Login here",
                       style: TextStyle(
-                        fontWeight: FontWeight.bold
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
                       ),
                       ),
                     )

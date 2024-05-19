@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:rtc_app/components/co_button.dart';
 import 'package:rtc_app/components/co_textfield.dart';
+import 'package:rtc_app/pages/home.dart';
 
 class Login extends StatelessWidget {
   final void Function()? onTap;
@@ -9,7 +12,9 @@ class Login extends StatelessWidget {
   final TextEditingController usrnameCo = TextEditingController();
   final TextEditingController passCo = TextEditingController();
 
-  void login() {
+  void login(BuildContext context) {
+    
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
     // Implement your login logic here
   }
 
@@ -22,7 +27,7 @@ class Login extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Colors.tealAccent,
+              Colors.purple,
               Colors.cyan,
             ],
           ),
@@ -36,25 +41,25 @@ class Login extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: 250,
-                      height: 250,
+                      width: 220,
+                      height: 220,
                       child: Image.asset("assets/pro.png")),
-                    SizedBox(height: 35),
+                    
                     Text(
-                      "Welcome to our RTC App",
+                      "RTC APP",
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    SizedBox(height: 25),
+                    SizedBox(height: 15),
                     CoTextfield(
                       controller: usrnameCo,
                       hintText: 'Username',
                       obscureText: false,
                     ),
-                    SizedBox(height: 25.0),
+                    SizedBox(height: 20.0),
                     CoTextfield(
                       controller: passCo,
                       hintText: 'Password',
@@ -67,10 +72,10 @@ class Login extends StatelessWidget {
                         Text("Forgot Password?"),
                       ],
                     ),
-                    SizedBox(height: 25),
+                    SizedBox(height: 5,),
                     CoButton(
                       text: "Login",
-                      onTap: login,
+                      onTap: () => login(context),
                     ),
                     const SizedBox(height: 25),
                     Row(

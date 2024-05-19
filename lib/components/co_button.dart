@@ -18,8 +18,8 @@ class CoButton extends StatelessWidget {
         onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
-            color: Color.fromARGB(255, 186, 186, 94),
-            borderRadius: BorderRadius.circular(10)
+            color: Colors.black54,
+            borderRadius: BorderRadius.circular(25)
           ),
           padding:  EdgeInsets.all(15)   ,
           child: Center(
