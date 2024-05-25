@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-
-
-import 'package:flutter/material.dart';
-
-class Home extends StatelessWidget {
-  const Home({super.key});
-=======
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -53,19 +45,10 @@ class _MyHomePageState extends State<MyHomePage> {
       _selectedIndex = index;
     });
   }
->>>>>>> 806e9fd5f4404d2c997f6aacb1245a0f9848d459
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-<<<<<<< HEAD
-      body: Center(
-        child: Text("Home"),
-      ),
-    );
-  }
-}
-=======
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60.0),
         child: AppBar(
@@ -112,4 +95,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
->>>>>>> 806e9fd5f4404d2c997f6aacb1245a0f9848d459

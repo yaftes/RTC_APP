@@ -1,18 +1,24 @@
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:rtc_app/components/co_button.dart';
 import 'package:rtc_app/components/co_textfield.dart';
 import 'package:rtc_app/pages/home.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   final void Function()? onTap;
-  Login({super.key, required this.onTap});
+  Login({Key? key, required this.onTap});
 
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   final TextEditingController usrnameCo = TextEditingController();
   final TextEditingController passCo = TextEditingController();
+ 
 
   void login(BuildContext context) {
-    
     Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()));
     // Implement your login logic here
   }
@@ -26,8 +32,8 @@ class Login extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Colors.purple,
-              Colors.cyan,
+              Colors.white,
+              Colors.white,
             ],
           ),
         ),
@@ -40,10 +46,16 @@ class Login extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: 220,
-                      height: 220,
-                      child: Image.asset("assets/pro.png")),
-                    
+                      width: 400,
+                      height: 300,
+                      child: Image.asset("assets/h.png"),
+                    ),
+                    Text("R      T       C",style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.blue[200],
+                      fontWeight: FontWeight.w900,
+                    ),),
+                    SizedBox(height: 15),
                     Text(
                       "RTC APP",
                       style: TextStyle(
@@ -71,7 +83,7 @@ class Login extends StatelessWidget {
                         Text("Forgot Password?"),
                       ],
                     ),
-                    SizedBox(height: 5,),
+                    SizedBox(height: 5),
                     CoButton(
                       text: "Login",
                       onTap: () => login(context),
@@ -80,14 +92,19 @@ class Login extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Don't have an account ?"),
+                        Text("Don't have an account ?",style: TextStyle(
+                          fontSize: 15,
+                  
+                        ),),
                         SizedBox(width: 15),
                         GestureDetector(
-                          onTap: onTap,
+                          onTap: widget.onTap,
                           child: Text(
                             "Register here",
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w900,
+                              fontSize: 18,
+                              color: Colors.blue[300],
                             ),
                           ),
                         ),

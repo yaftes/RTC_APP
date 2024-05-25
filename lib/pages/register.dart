@@ -20,8 +20,8 @@ class Register extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Colors.purple,
-              Colors.cyan,
+              Colors.white,
+              Colors.white,
             ],
           ),
         ),
@@ -33,16 +33,14 @@ class Register extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment:MainAxisAlignment.center,
                   children: [
-                     Container(
-                        width: 200,
-                        height: 200,
-                        child: Image.asset("assets/pro.png")),
-                 Text("Welcome to RTC App",
-                 style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white,
-                 ),),
+                     AnimatedSwitcher(
+                      duration: Duration(milliseconds: 500),
+                       child: Container(
+                          width: 400,
+                          height: 300,
+                          child: Image.asset("assets/h2.jpg")),
+                     ),
+               
                 SizedBox(height: 10,),
         
                 CoTextfield(controller: usrnameCo, hintText: 'Username', obscureText: false),
@@ -61,14 +59,20 @@ class Register extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Already have an account ?"),
+                    Text("Already have an account ?",
+                    style: TextStyle(
+        
+                      fontSize: 15,
+                    ),),
                     SizedBox(width: 15,),
                     GestureDetector(
                       onTap: onTap,
                       child: Text("Login here",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        fontSize: 20,
+                        color: Colors.blue[300],
+                        fontFamily: 'Montserrat',
                       ),
                       ),
                     )
