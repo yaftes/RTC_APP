@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:rtc_app/components/co_button.dart';
@@ -14,7 +13,7 @@ class Login extends StatelessWidget {
 
   void login(BuildContext context) {
     
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()));
     // Implement your login logic here
   }
 
