@@ -1,48 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import 'home_page.dart';
+import 'project_page.dart';
+import 'calendar_page.dart';
+import 'profile_page.dart';
+
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late PageController _pageController;
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Home Page'),
-    Text('Project Page'),
-    Text('Calendar Page'),
-    Text('Profile Page'),
+
+  // Create instances of the page widgets
+  final List<Widget> _widgetOptions = <Widget>[
+    HomePage(),
+    ProjectPage(),
+    CalendarPage(),
+    ProfilePage(),
   ];
 
+  // Titles for the AppBar
   static const List<String> _titles = <String>[
-    'RTC Home',
-    'Projects',
+    'Home',
+    'Project',
     'Calendar',
-    'Profile'
+    'Profile',
   ];
+
+  // Icons for the AppBar
   static const List<Widget> _icons = <Widget>[
-    Icon(
-      Icons.account_tree_outlined,
-      color: Colors.white,
-    ),
-    Icon(
-      Icons.work_history_outlined,
-      color: Colors.white,
-    ),
-    Icon(
-      Icons.calendar_month_outlined,
-      color: Colors.white,
-    ),
-    Icon(
-      Icons.person_3,
-      color: Colors.white,
-    ),
+    Icon(Icons.home),
+    Icon(Icons.track_changes_sharp),
+    Icon(Icons.calendar_month_outlined),
+    Icon(Icons.person),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      _pageController.animateToPage(
+        index,
+        duration: Duration(milliseconds: 10),
+        curve: Curves.ease,
+      );
     });
   }
 
@@ -64,8 +80,14 @@ class _MyHomePageState extends State<MyHomePage> {
           centerTitle: true,
         ),
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        children: _widgetOptions, // Pass the list of pages as children
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
