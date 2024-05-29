@@ -4,12 +4,14 @@ class CoTextfield extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final bool obscureText;
+  final String? Function(String?)? validator; 
 
   const CoTextfield({
     Key? key,
     required this.controller,
     required this.hintText,
     required this.obscureText,
+    this.validator,
   }) : super(key: key);
 
   @override
@@ -34,18 +36,19 @@ class CoTextfield extends StatelessWidget {
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: 2,
               blurRadius: 5,
-              offset: Offset(0, 3), // changes position of shadow
+              offset: Offset(0, 3), 
             ),
           ],
         ),
-        child: TextField(
+        child: TextFormField(
           controller: controller,
           obscureText: obscureText,
           decoration: InputDecoration(
             hintText: hintText,
-            border: InputBorder.none, // Remove default border
+            border: InputBorder.none, 
             contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
           ),
+          validator: validator, 
         ),
       ),
     );

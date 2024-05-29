@@ -14,13 +14,13 @@ class ProfilePage extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(0.0), // remove border-radius
+            borderRadius: BorderRadius.circular(0.0), 
           ),
           title: Text(
             'Logout',
             style: TextStyle(color: Colors.blue[300]),
           ),
-          backgroundColor: Colors.white, // change background color
+          backgroundColor: Colors.white,
           content: Text(
             'Are you sure you want to logout?',
             style: TextStyle(color: Colors.blue[300]),
@@ -29,7 +29,7 @@ class ProfilePage extends StatelessWidget {
             TextButton(
               child: Text(
                 'Cancel',
-                style: TextStyle(color: Colors.green), // change color to green
+                style: TextStyle(color: Colors.green), 
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -38,7 +38,7 @@ class ProfilePage extends StatelessWidget {
             TextButton(
               child: Text(
                 'Logout',
-                style: TextStyle(color: Colors.red), // change color to red
+                style: TextStyle(color: Colors.red), 
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -79,7 +79,7 @@ class ProfilePage extends StatelessWidget {
             child: IconButton(
               icon: Icon(
                 Icons.logout,
-                color: Colors.white, // change icon color to white
+                color: Colors.white, 
               ),
               onPressed: () {
                 _showLogoutDialog(context);
@@ -110,7 +110,7 @@ class ProfilePage extends StatelessWidget {
                     controller: _emailController,
                     hintText: 'Username',
                     obscureText: false,
-                    // change text color to white
+                
                   ),
                   SizedBox(height: 20),
                   CoTextfield(
@@ -120,8 +120,8 @@ class ProfilePage extends StatelessWidget {
                   ),
                   SizedBox(height: 40),
                   CoButton(
-                    text: "Register",
-                    onTap: () {}, // Pass the context to the register method
+                    text: "Update",
+                    onTap: () {},
                   ),
                  
                 ],
