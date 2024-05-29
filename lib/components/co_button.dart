@@ -23,7 +23,7 @@ class CoButton extends StatelessWidget {
               color: Colors.blue[300]!,
               width: 2,
             ),
-            borderRadius: BorderRadius.circular(0),
+            borderRadius: BorderRadius.circular(10), // Adjust border radius to 10
           ),
           padding: EdgeInsets.all(15),
           child: Center(
@@ -42,4 +42,3 @@ class CoButton extends StatelessWidget {
     );
   }
 }
-

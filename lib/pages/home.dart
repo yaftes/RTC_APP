@@ -23,26 +23,10 @@ class _MyHomePageState extends State<MyHomePage> {
     ProfilePage(),
   ];
 
-  // Titles for the AppBar
-  static const List<String> _titles = <String>[
-    'Home',
-    'Project',
-    'Calendar',
-    'Profile',
-  ];
-
-  // Icons for the AppBar
-  static const List<Widget> _icons = <Widget>[
-    Icon(Icons.home),
-    Icon(Icons.track_changes_sharp),
-    Icon(Icons.calendar_month_outlined),
-    Icon(Icons.person),
-  ];
-
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
+    _pageController = PageController(initialPage: _selectedIndex);
   }
 
   @override
@@ -52,34 +36,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      _pageController.animateToPage(
-        index,
-        duration: Duration(milliseconds: 10),
-        curve: Curves.ease,
-      );
-    });
+    _pageController.jumpToPage(index);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60.0),
-        child: AppBar(
-          title: Text(
-            _titles.elementAt(_selectedIndex),
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-          leading: _icons.elementAt(_selectedIndex),
-          elevation: 50,
-          backgroundColor: Colors.blue[300],
-          centerTitle: true,
-        ),
-      ),
       body: PageView(
         controller: _pageController,
         onPageChanged: (index) {
@@ -87,7 +49,8 @@ class _MyHomePageState extends State<MyHomePage> {
             _selectedIndex = index;
           });
         },
-        children: _widgetOptions, // Pass the list of pages as children
+        children: _widgetOptions,
+        physics: NeverScrollableScrollPhysics(), // Prevent swipe navigation
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -117,3 +80,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
