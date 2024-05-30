@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rtc_app/components/co_button.dart';
 import 'package:rtc_app/components/co_textfield.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Login extends StatelessWidget {
   final void Function()? onTap;
@@ -9,8 +12,43 @@ class Login extends StatelessWidget {
   final TextEditingController usrnameCo = TextEditingController();
   final TextEditingController passCo = TextEditingController();
 
-  void login() {
-    // Implement your login logic here
+
+
+  void authenticate(BuildContext context) async {
+    final storage = FlutterSecureStorage();
+
+    String email = usrnameCo.text;
+    String password = passCo.text;
+    Map<String, dynamic> userData = {
+      'email': email,
+      'password': password,
+    };
+
+    try {
+      var response = await http.post(
+        Uri.parse('http://127.0.0.1:8000/auth/token/'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(userData),
+      );
+
+      Map<String, dynamic> token = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        print('Login successfully');
+        print(token);
+
+        String access_token = token['access'], refresh_token = token['refresh'];
+
+        await storage.write(key: 'access_token', value: access_token);
+        await storage.write(key: 'refresh_token', value: refresh_token);
+
+        Navigator.of(context).pushReplacementNamed('/home');
+      } else {
+        print('Failed to Login user');
+      }
+    } catch (error) {
+      print('Error loging in user: $error');
+    }
   }
 
   @override
@@ -36,9 +74,9 @@ class Login extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: 250,
-                      height: 250,
-                      child: Image.asset("assets/pro.png")),
+                        width: 250,
+                        height: 250,
+                        child: Image.asset("assets/pro.png")),
                     SizedBox(height: 35),
                     Text(
                       "Welcome to our RTC App",
@@ -70,7 +108,7 @@ class Login extends StatelessWidget {
                     SizedBox(height: 25),
                     CoButton(
                       text: "Login",
-                      onTap: login,
+                      onTap: () => authenticate(context),
                     ),
                     const SizedBox(height: 25),
                     Row(
@@ -99,3 +137,5 @@ class Login extends StatelessWidget {
     );
   }
 }
+
+
