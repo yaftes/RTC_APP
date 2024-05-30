@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rtc_app/auth/loginorregister.dart';
 import 'package:rtc_app/pages/home.dart';
-import 'package:rtc_app/pages/login.dart';
-import 'package:rtc_app/pages/register.dart';
 
 void main() {
   runApp(const MyApp());

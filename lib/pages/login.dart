@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:rtc_app/components/co_button.dart';
 import 'package:rtc_app/components/co_textfield.dart';
@@ -5,10 +7,15 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   final void Function()? onTap;
-  Login({super.key, required this.onTap});
+  Login({Key? key, required this.onTap});
 
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   final TextEditingController usrnameCo = TextEditingController();
   final TextEditingController passCo = TextEditingController();
 
@@ -60,8 +67,8 @@ class Login extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Colors.tealAccent,
-              Colors.cyan,
+              Colors.white,
+              Colors.white,
             ],
           ),
         ),
@@ -74,25 +81,31 @@ class Login extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                        width: 250,
-                        height: 250,
-                        child: Image.asset("assets/pro.png")),
-                    SizedBox(height: 35),
+                      width: 400,
+                      height: 300,
+                      child: Image.asset("assets/h.png"),
+                    ),
+                    Text("R      T       C",style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.blue[200],
+                      fontWeight: FontWeight.w900,
+                    ),),
+                    SizedBox(height: 15),
                     Text(
-                      "Welcome to our RTC App",
+                      "RTC APP",
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    SizedBox(height: 25),
+                    SizedBox(height: 15),
                     CoTextfield(
                       controller: usrnameCo,
                       hintText: 'Username',
                       obscureText: false,
                     ),
-                    SizedBox(height: 25.0),
+                    SizedBox(height: 20.0),
                     CoTextfield(
                       controller: passCo,
                       hintText: 'Password',
@@ -105,7 +118,7 @@ class Login extends StatelessWidget {
                         Text("Forgot Password?"),
                       ],
                     ),
-                    SizedBox(height: 25),
+                    SizedBox(height: 5),
                     CoButton(
                       text: "Login",
                       onTap: () => authenticate(context),
@@ -114,14 +127,19 @@ class Login extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Don't have an account ?"),
+                        Text("Don't have an account ?",style: TextStyle(
+                          fontSize: 15,
+                  
+                        ),),
                         SizedBox(width: 15),
                         GestureDetector(
-                          onTap: onTap,
+                          onTap: widget.onTap,
                           child: Text(
                             "Register here",
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w900,
+                              fontSize: 18,
+                              color: Colors.blue[300],
                             ),
                           ),
                         ),

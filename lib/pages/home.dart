@@ -1,71 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import 'home_page.dart';
+import 'project_page.dart';
+import 'calendar_page.dart';
+import 'profile_page.dart';
+
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late PageController _pageController;
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Home Page'),
-    Text('Project Page'),
-    Text('Calendar Page'),
-    Text('Profile Page'),
+
+  // Create instances of the page widgets
+  final List<Widget> _widgetOptions = <Widget>[
+    HomePage(),
+    ProjectPage(),
+    CalendarPage(),
+    ProfilePage(),
   ];
 
-  static const List<String> _titles = <String>[
-    'RTC Home',
-    'Projects',
-    'Calendar',
-    'Profile'
-  ];
-  static const List<Widget> _icons = <Widget>[
-    Icon(
-      Icons.account_tree_outlined,
-      color: Colors.white,
-    ),
-    Icon(
-      Icons.work_history_outlined,
-      color: Colors.white,
-    ),
-    Icon(
-      Icons.calendar_month_outlined,
-      color: Colors.white,
-    ),
-    Icon(
-      Icons.person_3,
-      color: Colors.white,
-    ),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: _selectedIndex);
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    _pageController.jumpToPage(index);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60.0),
-        child: AppBar(
-          title: Text(
-            _titles.elementAt(_selectedIndex),
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-          leading: _icons.elementAt(_selectedIndex),
-          elevation: 50,
-          backgroundColor: Colors.blue[300],
-          centerTitle: true,
-        ),
-      ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        children: _widgetOptions,
+        physics: NeverScrollableScrollPhysics(), // Prevent swipe navigation
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -95,3 +80,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
