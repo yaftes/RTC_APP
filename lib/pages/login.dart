@@ -1,11 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:rtc_app/components/co_button.dart';
 import 'package:rtc_app/components/co_textfield.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:rtc_app/services/userService.dart';
 
 class Login extends StatefulWidget {
   final void Function()? onTap;
@@ -19,48 +15,28 @@ class _LoginState extends State<Login> {
   final TextEditingController usrnameCo = TextEditingController();
   final TextEditingController passCo = TextEditingController();
 
-
-
   void authenticate(BuildContext context) async {
-    final storage = FlutterSecureStorage();
-
-    String email = usrnameCo.text;
-    String password = passCo.text;
-    Map<String, dynamic> userData = {
-      'email': email,
-      'password': password,
-    };
-
-    try {
-      var response = await http.post(
-        Uri.parse('http://127.0.0.1:8000/auth/token/'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode(userData),
-      );
-
-      Map<String, dynamic> token = jsonDecode(response.body);
-
-      if (response.statusCode == 200) {
-        print('Login successfully');
-        print(token);
-
-        String access_token = token['access'], refresh_token = token['refresh'];
-
-        await storage.write(key: 'access_token', value: access_token);
-        await storage.write(key: 'refresh_token', value: refresh_token);
-
-        Navigator.of(context).pushReplacementNamed('/home');
-      } else {
-        print('Failed to Login user');
-      }
-    } catch (error) {
-      print('Error loging in user: $error');
+    bool login = await userLogin(usrnameCo.text, passCo.text);
+    if (login) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Wellcome to RTC!'),
+        backgroundColor: Colors.green,
+        duration: Duration(seconds: 2),
+      ));
+      Navigator.of(context).pushReplacementNamed('/home');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Username or password is incorrect'),
+        backgroundColor: Colors.red,
+        duration: Duration(seconds: 2),
+      ));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -85,11 +61,14 @@ class _LoginState extends State<Login> {
                       height: 300,
                       child: Image.asset("assets/h.png"),
                     ),
-                    Text("R      T       C",style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue[200],
-                      fontWeight: FontWeight.w900,
-                    ),),
+                    Text(
+                      "R      T       C",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.blue[200],
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
                     SizedBox(height: 15),
                     Text(
                       "RTC APP",
@@ -127,10 +106,12 @@ class _LoginState extends State<Login> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Don't have an account ?",style: TextStyle(
-                          fontSize: 15,
-                  
-                        ),),
+                        Text(
+                          "Don't have an account ?",
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
                         SizedBox(width: 15),
                         GestureDetector(
                           onTap: widget.onTap,
@@ -155,5 +136,3 @@ class _LoginState extends State<Login> {
     );
   }
 }
-
-

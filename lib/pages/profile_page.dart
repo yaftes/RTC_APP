@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:rtc_app/auth/token.dart';
 import 'package:rtc_app/components/co_button.dart';
 import 'package:rtc_app/components/co_card.dart';
 import 'package:rtc_app/components/co_textfield.dart';
 import 'package:rtc_app/pages/login.dart';
+
 
 class ProfilePage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
@@ -41,18 +43,20 @@ class ProfilePage extends StatelessWidget {
                 style: TextStyle(color: Colors.red), 
               ),
               onPressed: () {
+                TokenStorage.deleteToken();
                 Navigator.of(context).pop();
+                Navigator.of(context).pushReplacementNamed('/login');
 
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Login(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ),
-                );
+                // Navigator.pushReplacement(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => Login(
+                //       onTap: () {
+                //         Navigator.of(context).pop();
+                //       },
+                //     ),
+                //   ),
+                // );
               },
             ),
           ],
