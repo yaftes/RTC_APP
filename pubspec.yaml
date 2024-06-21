@@ -28,21 +28,25 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  flutter_secure_storage: ^9.0.0
   
   flutter:
     sdk: flutter
+  shared_preferences: ^2.0.6
+  multi_select_flutter: ^4.1.2
+  flutter_slidable: 3.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   table_calendar: ^3.1.1
+  appflowy_board: ^0.1.2
  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  provider: ^6.0.1
   http: 1.2.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
