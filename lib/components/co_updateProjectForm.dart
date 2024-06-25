@@ -26,9 +26,9 @@ class _UpdateProjectFormState extends State<UpdateProjectForm> {
   void initState() {
     print(' update form');
     if (widget.project.teams != null) {
-      widget.project.teams.forEach((el) {
+      widget.project.teams.forEach((team) {
         selectedTeams
-            .add(Team(members: el.members, name: el.name, teamId: el.teamId));
+            .add(Team(owner: team.owner,members: team.members, name: team.name, teamId: team.teamId));
       });
     }
     super.initState();

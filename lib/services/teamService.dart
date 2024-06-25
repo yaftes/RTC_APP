@@ -22,6 +22,7 @@ Future<List<Team>> getTeams() async {
         List<dynamic> members = eachTeam['members'];
 
         final team = Team(
+          owner: eachTeam['owner'],
           teamId: eachTeam['id'],
           name: eachTeam['name'],
           members: members,

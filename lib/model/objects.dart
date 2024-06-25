@@ -17,8 +17,7 @@ class Project {
       required this.teams});
 }
 
-
-class Task{
+class Task {
   final int taskId;
   final String title;
   final String description;
@@ -39,13 +38,17 @@ class Task{
       required this.assignedTo});
 }
 
-
 class Team {
   final int teamId;
+  final int owner;
   final String name;
   final List<dynamic> members;
 
-  Team({required this.teamId, required this.name, required this.members});
+  Team(
+      {required this.owner,
+      required this.teamId,
+      required this.name,
+      required this.members});
 }
 
 class User {
@@ -60,7 +63,7 @@ class User {
   });
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      userId: json['id'] is int? json['id'] : int.parse(json['id']),
+      userId: json['id'] is int ? json['id'] : int.parse(json['id']),
       name: json['name'],
       email: json['email'],
     );

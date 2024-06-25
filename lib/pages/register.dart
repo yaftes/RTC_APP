@@ -10,7 +10,7 @@ class Register extends StatelessWidget {
 
   Register({super.key, required this.onTap});
 
-  final TextEditingController usrnameCo = TextEditingController();
+  final TextEditingController nameCo = TextEditingController();
   final TextEditingController emailCo = TextEditingController();
   final TextEditingController passCo = TextEditingController();
   final TextEditingController confirmCo = TextEditingController();
@@ -19,43 +19,47 @@ class Register extends StatelessWidget {
   void register(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       // Proceed with registration if the form is valid
-       // Gather user information
-    String username = usrnameCo.text;
-    String email = emailCo.text;
-    String password = passCo.text;
-    Map<String, dynamic> userData = {
-      'name': username,
-      'email': email,
-      'password': password,
-    };
+      // Gather user information
+      String name = nameCo.text;
+      String email = emailCo.text;
+      String password = passCo.text;
+      Map<String, dynamic> userData = {
+        'name': name,
+        'email': email,
+        'password': password,
+      };
 
-    try {
-      var response = await http.post(
-        Uri.parse('http://127.0.0.1:8000/auth/user/'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode(userData),
-      );
-
-      print(response.body);
-      if (response.statusCode == 201) {
-        print('User registered successfully');
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Login(onTap: onTap)),
+      try {
+        var response = await http.post(
+          Uri.parse('http://127.0.0.1:8000/auth/user/'),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode(userData),
         );
-      } else {
-        print('Failed to register user');
+
+        print(response.body);
+        if (response.statusCode == 201) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('User created successfuly!'),
+            backgroundColor: Colors.green,
+            duration: Duration(seconds: 2),
+          ));
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Login(onTap: onTap)),
+          );
+        } else {
+          print('Failed to register user');
+        }
+      } catch (error) {
+        print('Error registering user: $error');
       }
-    } catch (error) {
-      print('Error registering user: $error');
-    }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.white,
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -85,19 +89,23 @@ class Register extends StatelessWidget {
                           child: Image.asset("assets/h2.jpg"),
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       CoTextfield(
-                        controller: usrnameCo,
-                        hintText: 'Username',
+                        controller: nameCo,
+                        hintText: 'name',
                         obscureText: false,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter a username';
+                            return 'Please enter a name';
                           }
                           return null;
                         },
                       ),
-                      SizedBox(height: 15,),
+                      SizedBox(
+                        height: 15,
+                      ),
                       CoTextfield(
                         controller: emailCo,
                         hintText: 'Email',
@@ -109,7 +117,9 @@ class Register extends StatelessWidget {
                           return null;
                         },
                       ),
-                      SizedBox(height: 15,),
+                      SizedBox(
+                        height: 15,
+                      ),
                       CoTextfield(
                         controller: passCo,
                         hintText: 'Password',
@@ -123,7 +133,9 @@ class Register extends StatelessWidget {
                           return null;
                         },
                       ),
-                      SizedBox(height: 15,),
+                      SizedBox(
+                        height: 15,
+                      ),
                       CoTextfield(
                         controller: confirmCo,
                         hintText: 'Confirm Password',
@@ -137,12 +149,16 @@ class Register extends StatelessWidget {
                           return null;
                         },
                       ),
-                      SizedBox(height: 15,),
+                      SizedBox(
+                        height: 15,
+                      ),
                       CoButton(
                         text: "Register",
                         onTap: () => register(context),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -152,7 +168,9 @@ class Register extends StatelessWidget {
                               fontSize: 15,
                             ),
                           ),
-                          SizedBox(width: 15,),
+                          SizedBox(
+                            width: 15,
+                          ),
                           GestureDetector(
                             onTap: onTap,
                             child: Text(

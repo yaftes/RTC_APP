@@ -17,15 +17,16 @@ class _LoginState extends State<Login> {
 
   void authenticate(BuildContext context) async {
     bool login = await userLogin(usrnameCo.text, passCo.text);
+    await storeUser();
     if (login) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Wellcome to RTC!'),
         backgroundColor: Colors.green,
         duration: Duration(seconds: 2),
       ));
       Navigator.of(context).pushReplacementNamed('/home');
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Username or password is incorrect'),
         backgroundColor: Colors.red,
         duration: Duration(seconds: 2),
@@ -38,7 +39,7 @@ class _LoginState extends State<Login> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -69,8 +70,8 @@ class _LoginState extends State<Login> {
                         fontWeight: FontWeight.w900,
                       ),
                     ),
-                    SizedBox(height: 15),
-                    Text(
+                    const SizedBox(height: 15),
+                    const Text(
                       "RTC APP",
                       style: TextStyle(
                         fontSize: 18,
@@ -78,26 +79,26 @@ class _LoginState extends State<Login> {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     CoTextfield(
                       controller: usrnameCo,
                       hintText: 'Username',
                       obscureText: false,
                     ),
-                    SizedBox(height: 20.0),
+                    const SizedBox(height: 20.0),
                     CoTextfield(
                       controller: passCo,
                       hintText: 'Password',
                       obscureText: true,
                     ),
-                    SizedBox(height: 10),
-                    Row(
+                    const SizedBox(height: 10),
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text("Forgot Password?"),
                       ],
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     CoButton(
                       text: "Login",
                       onTap: () => authenticate(context),
@@ -106,13 +107,13 @@ class _LoginState extends State<Login> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           "Don't have an account ?",
                           style: TextStyle(
                             fontSize: 15,
                           ),
                         ),
-                        SizedBox(width: 15),
+                        const SizedBox(width: 15),
                         GestureDetector(
                           onTap: widget.onTap,
                           child: Text(

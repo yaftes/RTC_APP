@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rtc_app/auth/loginorregister.dart';
 import 'package:rtc_app/pages/home.dart';
+import 'package:rtc_app/pages/appflowly.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -19,9 +21,9 @@ class MyApp extends StatelessWidget {
      ),
       home: Loginorregister(),
       routes: {
-        '/home' : (context)=> MyHomePage(),
+        '/home': (context) => MyHomePage(),
+        '/login': (context) => Loginorregister(),
       },
     );
   }
 }
-

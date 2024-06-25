@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:rtc_app/auth/token.dart';
 import 'package:rtc_app/components/co_button.dart';
-import 'package:rtc_app/components/co_card.dart';
 import 'package:rtc_app/components/co_textfield.dart';
-import 'package:rtc_app/pages/login.dart';
-
+import 'package:rtc_app/services/userService.dart';
 
 class ProfilePage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  Future<void> getUser(BuildContext context) async {
+    user = await getUserFromPrefs(context);
+    _emailController.text = user[0].email;
+    _nameController.text = user[0].name;
+  }
 
   void _showLogoutDialog(BuildContext context) {
     showDialog(
@@ -16,7 +21,7 @@ class ProfilePage extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(0.0), 
+            borderRadius: BorderRadius.circular(0.0),
           ),
           title: Text(
             'Logout',
@@ -31,7 +36,7 @@ class ProfilePage extends StatelessWidget {
             TextButton(
               child: Text(
                 'Cancel',
-                style: TextStyle(color: Colors.green), 
+                style: TextStyle(color: Colors.green),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -40,10 +45,11 @@ class ProfilePage extends StatelessWidget {
             TextButton(
               child: Text(
                 'Logout',
-                style: TextStyle(color: Colors.red), 
+                style: TextStyle(color: Colors.red),
               ),
               onPressed: () {
                 TokenStorage.deleteToken();
+                removeUser();
                 Navigator.of(context).pop();
                 Navigator.of(context).pushReplacementNamed('/login');
 
@@ -67,6 +73,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    getUser(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -83,7 +90,7 @@ class ProfilePage extends StatelessWidget {
             child: IconButton(
               icon: Icon(
                 Icons.logout,
-                color: Colors.white, 
+                color: Colors.white,
               ),
               onPressed: () {
                 _showLogoutDialog(context);
@@ -102,7 +109,7 @@ class ProfilePage extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: [
-                SizedBox(height: 40),
+                  SizedBox(height: 40),
                   Center(
                     child: CircleAvatar(
                       radius: 50,
@@ -111,10 +118,15 @@ class ProfilePage extends StatelessWidget {
                   ),
                   SizedBox(height: 40),
                   CoTextfield(
-                    controller: _emailController,
-                    hintText: 'Username',
+                    controller: _nameController,
+                    hintText: 'name',
                     obscureText: false,
-                
+                  ),
+                  SizedBox(height: 20),
+                  CoTextfield(
+                    controller: _emailController,
+                    hintText: 'email',
+                    obscureText: false,
                   ),
                   SizedBox(height: 20),
                   CoTextfield(
@@ -127,7 +139,6 @@ class ProfilePage extends StatelessWidget {
                     text: "Update",
                     onTap: () {},
                   ),
-                 
                 ],
               ),
             ),
