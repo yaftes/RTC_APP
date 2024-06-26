@@ -49,6 +49,14 @@ class Team {
       required this.teamId,
       required this.name,
       required this.members});
+  factory Team.fromJson(Map<String, dynamic> json) {
+    return Team(
+      teamId: json['id'] is int ? json['id'] : int.parse(json['id']),
+      name: json['name'],
+      members: json['members'],
+      owner: json['owner'] is int ? json['owner'] : int.parse(json['owner']),
+    );
+  }
 }
 
 class User {
@@ -74,6 +82,16 @@ class User {
         'name': name,
         'email': email,
       };
+}
+
+class TeamInvitation {
+  final int invitationId;
+  final Team team;
+  final User user;
+  final bool isAccepted;
+
+  TeamInvitation( 
+      {required this.invitationId,required this.team, required this.user, required this.isAccepted});
 }
 
 class DropdownItem {
