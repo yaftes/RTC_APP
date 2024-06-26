@@ -77,7 +77,7 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Profile',
           style: TextStyle(
             color: Colors.white,
@@ -88,7 +88,7 @@ class ProfilePage extends StatelessWidget {
           SizedBox(
             width: 50,
             child: IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.logout,
                 color: Colors.white,
               ),

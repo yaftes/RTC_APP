@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:rtc_app/components/co_createTeamForm.dart';
+import 'package:rtc_app/model/objects.dart';
+import 'package:rtc_app/services/userService.dart';
+import 'package:rtc_app/services/teamService.dart';
 
 class TeamPage extends StatefulWidget {
   const TeamPage({Key? key}) : super(key: key);
@@ -8,8 +12,14 @@ class TeamPage extends StatefulWidget {
 }
 
 class _TeamPageState extends State<TeamPage> {
-  void _onAddButtonPressed() {
-   
+  Future<void> _onAddButtonPressed() async {
+    await getAllUsers();
+  }
+
+  @override
+  void initState() {
+    _onAddButtonPressed();
+    super.initState();
   }
 
   @override
@@ -17,23 +27,68 @@ class _TeamPageState extends State<TeamPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue[300],
-        title: Center(child: Text('Team',style: 
-        TextStyle(
-          color: Colors.white
-        ),)),
+        title: Center(
+            child: Text(
+          'Team',
+          style: TextStyle(color: Colors.white),
+        )),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.add,),
+            icon: Icon(
+              Icons.add,
+            ),
             onPressed: () {
-              _onAddButtonPressed();
+              showModalBottomSheet(
+                elevation: 10,
+                context: context,
+                isScrollControlled: true,
+                builder: (context) {
+                  return CreateTeamFormModal(
+                      members: users,
+                      onSubmit: (name, selectedMembers) async {
+                        try {
+                          Team team = Team(
+                            owner: 1,
+                            teamId: 1,
+                            name: name,
+                            members: selectedMembers,
+                          );
+                          await inviteUsers(team);
+                          setState(() {
+                            _onAddButtonPressed();
+                          });
+                        } catch (e) {
+                          print('add object $e');
+                        }
+                        // setState(() {});
+                      });
+                },
+              );
             },
           ),
         ],
       ),
-      body: Center(
-        
+      body: FutureBuilder<List<Team>>(
+        future: getTeams(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else {
+            List<Team> teams = snapshot.data!;
+            return ListView.builder(
+              itemCount: teams.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(teams[index]
+                      .name), 
+                );
+              },
+            );
+          }
+        },
       ),
     );
   }
 }
-

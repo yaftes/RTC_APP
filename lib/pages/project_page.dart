@@ -32,9 +32,11 @@ class _ProjectPageState extends State<ProjectPage> {
     _onRefresh();
     return Scaffold(
         appBar: AppBar(
-          title: Text('Projects'),
-          backgroundColor: Colors.blue,
+          title: Text('Projects',style:TextStyle(color: Colors.white) ,),
+          backgroundColor: Colors.blue[300],
+          
           centerTitle: true,
+          automaticallyImplyLeading: false,
           actions: [
             IconButton(
               onPressed: () {
